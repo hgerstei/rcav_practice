@@ -23,11 +23,12 @@ class CalculationsController < ApplicationController
   end
 
   def payment
+    # P = (r * A) / (1 - (1+r) ^ (-N))
     @url = "http://localhost:3000/payment/interest_rate/number_of_years/principal_value"
     @interest_rate = params[:interest_rate].to_f / 100
     @number_of_years = params[:number_of_years].to_i
     @principal_value = params[:principal_value].to_i
-    @payment = (@interest_rate*@principal_value)/(1-(1+@interest_rate)**(-1*@number_of_years/12))
+    @payment = (@interest_rate / 1200 * @principal_value) / (1 - (1 + (@interest_rate / 1200)) ** (@number_of_years * -12))
   end
 
 end
